@@ -5,6 +5,7 @@
     <title>Nfty Test</title>
 
     <!-- Lib Stuff -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -13,6 +14,7 @@
     <!-- Platform Overrides & Scripts -->
     <link rel="stylesheet" href="static/css/core.css"/>
     <script src="static/js/core.js"></script>
+    <script src="static/js/walletManagement.js"></script>
     <script src="static/js/renderer.js"></script>
 
 
@@ -21,15 +23,17 @@
   <body>
     <header>
       <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-3">
         <a href="#">
           <div id="logoHeaderImage"></div>
         </a>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-6">
         </div>
-        <div class="col-md-2">
-          <button class="btn btn-info" onClick="connectWallet()"> Connect Wallet </button>
+        <div class="col-md-3">
+          <button class="btn btn-info" onClick="connectWallet()"> 
+            <span id="wallet_button"> Connect Wallet </span>
+          </button>
         </div>
       </div>
     </header>

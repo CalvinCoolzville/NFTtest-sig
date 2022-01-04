@@ -40,6 +40,10 @@ footer {
 
 }
 
+#wallet_button {
+  color: white;
+}
+
 #logoHeaderImage {
   background-image: url("../imgs/signal_nft_logo.png");
   background-position: center;
