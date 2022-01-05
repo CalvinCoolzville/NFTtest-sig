@@ -5,28 +5,39 @@ pragma solidity ^0.8.0;
 
 import "./ModdedERC721Flat.sol";
 
+
+
 contract NFTMarketplace {
     address _owner;
     string _mkt_name;
     string _platformURI;
+
+    modifier OnlyOwner() {
+      require(owner() == msg.sender, "Only Owner can Modify this");
+      _;
+    }
 
     struct Bid {
       address from;
       uint256 amount;
       uint256 expiration;
     }
-    
-    mapping (address => bool) operators; 
+
+    mapping (address => bool) operators;
     mapping (bytes32 => address) tokens;  // TokenID => contractAddress
     mapping (string => Bid) bids; // TokenID
     bytes32[] tokenIDs;
-    
+
     mapping (address => string) owners;
 
     constructor (string memory mkt_name_, string memory platformURI_) {
         _mkt_name = mkt_name_;
         _platformURI = platformURI_;
         _owner = msg.sender;
+    }
+
+    function owner() public view returns (address){
+      return _owner;
     }
 
     function mktName() public view returns (string memory){
@@ -67,22 +78,23 @@ contract NFTMarketplace {
     }
 
     function __placeBid(bytes32 tokenID_) internal {
-      
+
     }
 
     function __deployERC721(string memory name_, string memory symbol_) internal returns (bytes32){
         bytes32 newTokenID = __createTokenID(msg.sender);
-        ERC721 newContract = new ERC721(name_, symbol_, _platformURI); // Requires tokenURI constructor 
+        ERC721 newContract = new ERC721(name_, symbol_, _platformURI); // Requires tokenURI constructor
         tokens[newTokenID] = address(newContract);
+        operators[msg.sender] = true;
         tokenIDs.push(newTokenID);
         return newTokenID;
     }
 
     function __tradeERC721() internal {
-        
+
     }
 
-    function deployNFT(string memory name_, string memory symbol_) public returns (bytes32) {
+    function deployNFT(string memory name_, string memory symbol_) OnlyOwner public returns (bytes32) {
         bytes32 tokenID = __deployERC721(name_, symbol_);
         return tokenID;
     }
@@ -92,15 +104,15 @@ contract NFTMarketplace {
     }
 
     function startBidding(string calldata tokenId_) public {
-        
+
     }
 
     function checkBid(string calldata tokenID_) public view {
-    
+
     }
 
     function resolveTrade() public {
-        
+
     }
 
     function getTokenAddressFromID(bytes32 tokenID_) public view returns (address tokenAddress){
